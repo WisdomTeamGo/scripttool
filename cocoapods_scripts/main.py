@@ -41,7 +41,8 @@ Example:
         did_anything = True
 
     if options.commit is not None:
-        cocoapods_operation.add_and_commit_version(options.directory[1],options.commit[0],3)
+        print("%s" % options.directory)
+        cocoapods_operation.add_and_commit_version(options.directory[0],options.commit[0],3)
 
 
 if __name__ == "__main__":

@@ -67,17 +67,17 @@ def add_version_number(dependency_obj,flag=3):
     if flag == 1:
         sub_ver = int(version_arr[0]) + 1;
         sub_ver = str(sub_ver)
-        ver = ".".join(sub_ver, "0", "0")
+        ver = ".".join([sub_ver, "0", "0"])
     elif flag == 2:
         sub_ver = int(version_arr[1]) + 1;
         sub_ver = str(sub_ver)
-        ver = ".".join(version_arr[0], sub_ver, "0")
+        ver = ".".join([version_arr[0], sub_ver, "0"])
     else:
         sub_ver = int(version_arr[2]) + 1;
         sub_ver = str(sub_ver)
-        ver = ".".join(version_arr[0], version_arr[1], sub_ver)
+        ver = ".".join([version_arr[0], version_arr[1], sub_ver])
     dependency_obj.version = ver
-    target_str = "s.version = '%$'" % dependency_obj.version
+    target_str = "s.version = '%s'" % str(dependency_obj.version)
     pattern = re.compile(version_reg,re.M)
 
     file1 = open(dependency_obj.podSpecFilePath, 'r')
@@ -104,7 +104,7 @@ def load_dependency(path):
     files = os.listdir(path)
     for item in files:
         if item.endswith(".podspec"):
-            file_path = "/".join(path,item)
+            file_path = "/".join([path,item])
             return chang_podspec_dependency(file_path)
     return None
 
@@ -122,13 +122,13 @@ def add_and_commit_version(basedir,dependency_name,flag=3):
     """
     pod_item = None
     dependency_name = dependency_name.lower()
-    file_path = '/'.join(basedir,dependency_name)
+    file_path = "/".join([basedir,dependency_name])
     pod_obj = load_dependency(path=file_path)
     if pod_obj is None:
         logging.info("版本更新失败: %s" %file_path)
     else:
         add_version_number(pod_obj,flag)
-        target_dir = "/".join(basedir,pod_obj.gitName)
+        target_dir = "/".join([basedir,pod_obj.gitName])
         cmd = 'sh commit.sh "%s" "%s" "%s"' % (target_dir, pod_obj.version, pod_obj.name)
         os.system(cmd)
 

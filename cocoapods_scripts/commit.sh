@@ -10,13 +10,11 @@ git tag ${POD_VERSION}
 git push
 git push --tags
 
-git push origin ${POD_VERSION}
-git push origin master
 
 
 #提交podspec文件
-cd ../deep_cocoapods/Specs
-git pull origin master
+cd ../app_bj_deep_cocaopods/Specs
+git pull
 mkdir ${POD_NAME}
 cd ${POD_NAME}
 mkdir ${POD_VERSION}
@@ -28,5 +26,4 @@ cp ${TARGET_DIR}/${POD_NAME}.podspec ${POD_NAME}.podspec
 git add *
 git commit -am "${POD_NAME}: [${POD_VERSION}]"
 git push
-git push origin master
 
